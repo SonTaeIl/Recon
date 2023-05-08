@@ -109,14 +109,11 @@ extension ViewModel {
                 rotation = simd_float4x4(SCNMatrix4MakeRotation(.pi, 0, 0, 1))
                 transform = simd_mul(currentMatrix, rotation)
             }
-
             DispatchQueue.main.async {
                 self.model!.move(to: transform, relativeTo: anchor, duration: 0.2)
             }
-            
-            transform = simd_mul(model!.transform.matrix, rotation)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.model!.move(to: transform, relativeTo: anchor, duration: 0.2)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.205) {
+                self.model!.move(to: simd_mul(self.model!.transform.matrix, rotation), relativeTo: anchor, duration: 0.2)
             }
         }
     }
